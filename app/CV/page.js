@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Evan Sagman | CV"
+  title: "Riley Midroni | CV"
 };
 
 export default function CV() {

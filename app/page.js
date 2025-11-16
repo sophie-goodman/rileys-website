@@ -12,19 +12,21 @@ export default function Home() {
       <div className="">
         {/* MENU BAR */}
         <nav className="">
-          <Link href="/CV" className="hover:underline">CV</Link>
-          <Link href="/about" className="hover:underline">ABOUT</Link>
-          <Link href="/portfolio" className="hover:underline">PORTFOLIO</Link>
+        <Link href="/portfolio" className="hover:underline">PORTFOLIO</Link>
+        <Link href="/about" className="hover:underline">ABOUT</Link>
+        <Link href="/CV" className="hover:underline">CV</Link>
+          
+      
         </nav>
 
 
-        <div className="">
+        <div className="text-black ">
             Riley Midroni
         </div>
 
-        <div className="md:w-full md:h-full">
+        <div className="md:w-full md:h-full font-Notable md:text-60">
         <Image
-          src="/IMG_0356.JPG"
+          src="/assets/IMG_0356.JPG"
           alt="Art Thumbnail"
           fill
           className="object-cover"
