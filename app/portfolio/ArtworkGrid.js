@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState, useMemo } from "react";
 
 const CATEGORIES = [
-  { label: "All", value: "all" },
+  { label: "Gallery", value: "all" },
   { label: "Jewelry", value: "jewelry" },
   { label: "Sculpture and Installation", value: "sculpture" },
   { label: "Painting and Drawing", value: "painting" },

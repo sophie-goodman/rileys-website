@@ -38,7 +38,7 @@ export default async function Home() {
     "@RILEYMIDRONI\nRILEYMIDRONI@INFO.COM";
 
   /** Local fallback when Sanity has no hero (IMG_0356 was removed from the repo). */
-  const fallbackHero = "/assets/homepage.JPEG";
+  const fallbackHero = "/assets/homepage.JPG";
   let heroSrc = fallbackHero;
   if (home?.heroImage?.asset) {
     try {
