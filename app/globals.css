@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Keep light theme: dark OS preference was flipping --background to near-black and painting the whole page. */
+html {
+  color-scheme: light;
+  background-color: #ffffff;
+}
+
+body {
+  background-color: #ffffff;
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+@font-face {
+  font-family: "Notable";
+  src: url("/assets/Notable-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Alkalami";
+  src: url("/assets/Alkalami-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  --font-Notable: "Notable", sans-serif;
+  --font-Alkalami: "Alkalami", serif;
+}
+
+/* Site navigation uses Alkalami from public/assets/Alkalami-Regular.ttf */
+.font-Alkalami {
+  font-family: "Alkalami", serif;
+}
