@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useMemo } from "react";
-import { urlFor } from "../../sanity/lib/image";
 
 const CATEGORIES = [
   { label: "All", value: "all" },
@@ -39,9 +38,7 @@ export default function ArtworkGrid({ artworks = [] }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 p-6 px-20 mt-10">
         {filtered.map((artwork) => {
-          const src = artwork?.mainImage
-            ? urlFor(artwork.mainImage).width(600).height(600).url()
-            : null;
+          const src = artwork?.mainImageUrl ?? null;
           if (!src) return null;
           const href = artwork?.slug ? `/portfolio/${artwork.slug}` : null;
           const content = (

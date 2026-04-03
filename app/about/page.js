@@ -8,8 +8,8 @@ export const metadata = {
   title: "Riley Midroni | About",
 };
 
-/** Local portrait in public/assets (e.g. riley.jpg). */
-const ABOUT_IMAGE_SRC = "/assets/riley.jpg";
+/** Local portrait in public/assets (match filename casing for Linux/Vercel). */
+const ABOUT_IMAGE_SRC = "/assets/riley.JPG";
 
 const DUMMY_ARTIST_STATEMENT = `My practice sits at the intersection of sculpture, costume, and the everyday rituals that shape how we present ourselves. I work with materials that carry memory—fabric, found objects, and the body as a site where identity is constantly rehearsed and revised.
 

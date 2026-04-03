@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ContactInstagramEmail } from "../components/ContactLines";
 import { client } from "../../sanity/lib/client";
+import { urlFor } from "../../sanity/lib/image";
 import { artworksQuery, siteSettingsQuery } from "../../sanity/lib/queries";
 import ArtworkGrid from "./ArtworkGrid";
 
@@ -19,7 +20,17 @@ export default async function PortfolioPage() {
   const instagramHandle = settings?.instagramHandle
     ? `@${settings.instagramHandle}`
     : "@RILEYMIDRONI";
-  const safeArtworks = Array.isArray(artworks) ? artworks : [];
+  const safeArtworks = (Array.isArray(artworks) ? artworks : []).map((a) => {
+    let mainImageUrl = null;
+    if (a?.mainImage) {
+      try {
+        mainImageUrl = urlFor(a.mainImage).width(600).height(600).url();
+      } catch {
+        mainImageUrl = null;
+      }
+    }
+    return { ...a, mainImageUrl };
+  });
 
   return (
     <main className="min-h-screen flex flex-col bg-white">

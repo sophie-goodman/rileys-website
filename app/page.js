@@ -24,7 +24,7 @@ export default async function Home() {
           .filter(Boolean)
           .join("\n")
       : null) ??
-    "@rileyMidroni\nrileymidroni@info.com";
+    "@RILEYMIDRONI\nRILEYMIDRONI@INFO.COM";
   const contactMobile =
     home?.contactTextMobile ??
     (settings
@@ -35,14 +35,16 @@ export default async function Home() {
           .filter(Boolean)
           .join("\n")
       : null) ??
-    "@rileyMidroni\nrileymidroni@info.com";
+    "@RILEYMIDRONI\nRILEYMIDRONI@INFO.COM";
 
-  let heroSrc = "/assets/IMG_0356.JPG";
+  /** Local fallback when Sanity has no hero (IMG_0356 was removed from the repo). */
+  const fallbackHero = "/assets/riley.JPG";
+  let heroSrc = fallbackHero;
   if (home?.heroImage?.asset) {
     try {
       heroSrc = urlFor(home.heroImage).width(1920).height(1080).url();
     } catch {
-      heroSrc = "/assets/IMG_0356.JPG";
+      heroSrc = fallbackHero;
     }
   }
 
