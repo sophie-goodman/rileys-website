@@ -21,7 +21,7 @@ export default function ArtworkGrid({ artworks = [] }) {
 
   return (
     <>
-      <div className="flex flex-row gap-2 items-center justify-center sm:mt-40 sm:gap-7 text-md flex-wrap text-black mt-40">
+      <div className="flex flex-row gap-2 items-center justify-center sm:mt-40 sm:gap-7 text-md flex-wrap text-black mt-40 font-Alkalami">
         {CATEGORIES.map((cat, i) => (
           <span key={cat.value} className="inline-flex items-center gap-2 sm:gap-7">
             {i > 0 && <span className="select-none" aria-hidden>·</span>}

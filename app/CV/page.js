@@ -36,7 +36,7 @@ export default async function CVPage() {
       </h1>
 
       <header className="flex flex-row justify-center">
-        <nav className="flex flex-col text-center gap-3 md:flex-row md:gap-20 mt-3 font-Alkalami">
+        <nav className="flex flex-col text-center gap-3 md:flex-row md:gap-20 mt-8 font-Alkalami">
           <Link href="/portfolio" className="text-black hover:underline">
             PORTFOLIO
           </Link>

@@ -34,31 +34,22 @@ export default async function AboutPage() {
 
   return (
     <main className="min-h-screen flex flex-col bg-white text-black">
-      {/* Top: small label + vertical nav (reference layout) */}
-      <header className="flex justify-between items-start gap-8 px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8 pb-4 max-w-7xl mx-auto w-full">
-        <p className="text-neutral-400 text-[11px] sm:text-xs tracking-[0.25em] uppercase font-Alkalami">
-          About
-        </p>
-        <nav className="flex flex-col items-start gap-1 sm:gap-0.5 font-Alkalami text-base sm:text-lg text-black text-left">
-          <Link href="/portfolio" className="hover:underline">
-            PORTFOLIO
-          </Link>
-          <Link href="/" className="hover:underline">
-            HOME
-          </Link>
-          <Link href="/CV" className="hover:underline">
-            CV
-          </Link>
-        </nav>
-      </header>
-
-      {/* Full-width headline scales with content width (container query); no horizontal scroll */}
-      <section className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pb-12 [container-type:inline-size]">
-        <h1 className="block w-full max-w-full min-w-0 font-Notable uppercase whitespace-nowrap text-[clamp(1.5rem,5.8cqi,6.25rem)] leading-[0.86] tracking-tight text-black relative z-10 mb-[-0.12em] pr-24 sm:pr-32 md:pr-40 lg:pr-44 xl:pr-52 box-border">
+      {/* Header row: title left, nav right — same line */}
+      <header className="flex items-start justify-between gap-8 px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8 pb-5 max-w-7xl mx-auto w-full [container-type:inline-size]">
+        <h1 className="font-Notable uppercase whitespace-nowrap text-[clamp(1.5rem,7.8cqi,6.25rem)] leading-[0.86] tracking-tight text-black min-w-0">
           {displayTitle}
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-12 xl:gap-16 gap-y-6 md:gap-y-0 md:mt-0">
-          <div className="relative aspect-square w-full max-w-[min(100%,28rem)] md:max-w-none bg-neutral-200 min-w-0 md:col-start-1 md:row-start-1 md:self-start">
+        <nav className="flex flex-col items-start gap-1 sm:gap-0.5 font-Alkalami text-base sm:text-lg text-black text-left shrink-0 pt-1">
+          <Link href="/portfolio" className="hover:underline">PORTFOLIO</Link>
+          <Link href="/" className="hover:underline">HOME</Link>
+          <Link href="/CV" className="hover:underline">CV</Link>
+        </nav>
+      </header>
+  
+      {/* Image + statement below */}
+      <section className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-12 xl:gap-16 gap-y-6 md:gap-y-0">
+          <div className="relative aspect-square w-full max-w-[min(100%,28rem)] md:max-w-none bg-neutral-200 min-w-0 md:self-start">
             <Image
               src={ABOUT_IMAGE_SRC}
               alt={title}
@@ -68,7 +59,7 @@ export default async function AboutPage() {
               priority
             />
           </div>
-          <div className="font-Alkalami text-sm sm:text-[15px] leading-[1.65] text-black text-left max-w-prose md:max-w-none min-w-0 md:col-start-2 md:row-start-1 md:self-start md:pt-10 lg:pt-12">
+          <div className="font-Alkalami text-sm sm:text-[15px] leading-[1.65] text-black text-left min-w-0 md:self-start md:pt-2">
             <div className="whitespace-pre-wrap text-neutral-900">{statementBody}</div>
           </div>
         </div>

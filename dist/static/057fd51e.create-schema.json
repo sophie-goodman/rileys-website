@@ -1,0 +1,386 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "year",
+        "type": "string"
+      },
+      {
+        "name": "medium",
+        "type": "string"
+      },
+      {
+        "name": "dimensions",
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "All",
+              "value": "all"
+            },
+            {
+              "title": "Jewelry",
+              "value": "jewelry"
+            },
+            {
+              "title": "Sculpture and Installation",
+              "value": "sculpture"
+            },
+            {
+              "title": "Painting and Drawing",
+              "value": "painting"
+            }
+          ]
+        },
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "mainImage",
+        "type": "image",
+        "title": "Main image"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "images",
+        "type": "array",
+        "title": "Additional images"
+      },
+      {
+        "description": "Lower numbers appear first",
+        "name": "order",
+        "type": "number",
+        "title": "Display order"
+      }
+    ],
+    "name": "artwork",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "degreeOrCertification",
+        "type": "string",
+        "title": "Degree or certification"
+      },
+      {
+        "description": "e.g. 2024 or 2020–2024",
+        "name": "year",
+        "type": "string"
+      }
+    ],
+    "name": "cvEducationProgram",
+    "type": "object",
+    "title": "Degree or certification"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "School, academy, or organization name",
+        "name": "institution",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "message": "Add at least one degree or certification"
+          }
+        ],
+        "of": [
+          {
+            "type": "cvEducationProgram",
+            "title": "Degree or certification"
+          }
+        ],
+        "name": "programs",
+        "type": "array",
+        "title": "Degrees and certifications"
+      }
+    ],
+    "name": "cvEducationInstitution",
+    "type": "object",
+    "title": "Institution"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string",
+        "title": "Title / Role"
+      },
+      {
+        "name": "institution",
+        "type": "string",
+        "title": "Institution / Publication / Venue"
+      },
+      {
+        "name": "location",
+        "type": "string"
+      },
+      {
+        "description": "e.g. \"2024\" or \"Jan 2024 - Mar 2024\"",
+        "name": "date",
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      }
+    ],
+    "name": "cvEntry",
+    "type": "object",
+    "title": "CV Entry"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "e.g. EXHIBITIONS, PUBLICATIONS, EDUCATION",
+        "name": "sectionTitle",
+        "type": "string",
+        "title": "Section title"
+      },
+      {
+        "description": "Lower numbers appear first",
+        "name": "order",
+        "type": "number",
+        "title": "Display order"
+      },
+      {
+        "description": "Use for exhibitions, publications, etc. For EDUCATION, prefer “Education (by institution)” below.",
+        "of": [
+          {
+            "type": "cvEntry",
+            "title": "CV Entry"
+          }
+        ],
+        "name": "entries",
+        "type": "array"
+      },
+      {
+        "description": "For EDUCATION: add each institution, then add multiple rows (degree or certification + year). Leave “Entries” empty for this section if you use this block.",
+        "of": [
+          {
+            "type": "cvEducationInstitution",
+            "title": "Institution"
+          }
+        ],
+        "name": "educationInstitutions",
+        "type": "array",
+        "title": "Education (by institution)"
+      }
+    ],
+    "name": "cvSection",
+    "type": "document",
+    "title": "CV Section"
+  },
+  {
+    "fields": [
+      {
+        "description": "Used in metadata and headings",
+        "name": "siteName",
+        "type": "string",
+        "title": "Site name"
+      },
+      {
+        "name": "contactEmail",
+        "type": "string",
+        "title": "Contact email"
+      },
+      {
+        "description": "Without @",
+        "name": "instagramHandle",
+        "type": "string",
+        "title": "Instagram handle"
+      },
+      {
+        "description": "Optional; if different from main contact email on mobile",
+        "name": "contactEmailMobile",
+        "type": "string",
+        "title": "Contact email (mobile)"
+      },
+      {
+        "description": "Optional; if different on mobile",
+        "name": "instagramHandleMobile",
+        "type": "string",
+        "title": "Instagram handle (mobile)"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document",
+    "title": "Site settings"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "heroImage",
+        "type": "image",
+        "title": "Hero image"
+      },
+      {
+        "description": "e.g. Riley",
+        "name": "nameLine1",
+        "type": "string",
+        "title": "Name (line 1)"
+      },
+      {
+        "description": "e.g. Midroni",
+        "name": "nameLine2",
+        "type": "string",
+        "title": "Name (line 2)"
+      },
+      {
+        "description": "Lines for handle and email shown on desktop",
+        "name": "contactTextDesktop",
+        "type": "text",
+        "title": "Contact text (desktop)"
+      },
+      {
+        "description": "Lines for handle and email shown on mobile",
+        "name": "contactTextMobile",
+        "type": "text",
+        "title": "Contact text (mobile)"
+      }
+    ],
+    "name": "homePage",
+    "type": "document",
+    "title": "Home page"
+  },
+  {
+    "fields": [
+      {
+        "description": "e.g. Riley Midroni",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "portrait",
+        "type": "image",
+        "title": "Portrait image"
+      },
+      {
+        "name": "bio",
+        "type": "text",
+        "title": "Bio / Statement"
+      },
+      {
+        "initialValue": true,
+        "name": "showContactForm",
+        "type": "boolean",
+        "title": "Show contact form"
+      }
+    ],
+    "name": "aboutPage",
+    "type": "document",
+    "title": "About page"
+  }
+]
