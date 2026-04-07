@@ -27,21 +27,25 @@ export default async function ArtworkPage({ params }) {
   const instagramHandle = settings?.instagramHandle
     ? `@${settings.instagramHandle}`
     : "@RILEYMIDRONI";
-  const extraImages = (Array.isArray(artwork.images) ? artwork.images : []).map(
-    (img) => ({ url: urlFor(img).width(900).height(900).url() })
-  );
+  const extraImages = (Array.isArray(artwork.images) ? artwork.images : []).map((img) => ({
+    url: urlFor(img).width(1200).url(),
+    width: img?.width ?? null,
+    height: img?.height ?? null,
+  }));
   const mainImageUrl = artwork.mainImage
-    ? urlFor(artwork.mainImage).width(900).height(900).url()
+    ? urlFor(artwork.mainImage).width(1200).url()
     : null;
+  const mainImageWidth = artwork.mainImage?.width ?? null;
+  const mainImageHeight = artwork.mainImage?.height ?? null;
 
   return (
     <main className="min-h-screen flex flex-col bg-white text-black">
-      <div className="flex flex-col sm:flex-row p-3 sm:p-6 sm:w-full">
-        <div className="text-black font-Notable text-center text-3xl md:text-5xl md:ml-5 sm:text-left">
+      <div className="flex flex-col md:flex-row p-3 sm:p-6 sm:w-full gap-5 md:gap-0">
+        <div className="text-black font-Notable w-full text-center text-[clamp(2.125rem,6.5vw,2.75rem)] leading-tight md:text-left md:text-3xl md:text-5xl md:ml-5 md:leading-none">
           {name}
         </div>
-        <div className="flex text-center justify-center sm:text-right flex-grow sm:justify-end md:mr-4 sm:mt-3 md:text-lg">
-          <nav className="flex flex-col gap-3 sm:gap-5 sm:flex-row md:gap-8 text-black font-Alkalami">
+        <div className="flex w-full text-center justify-center md:text-right md:flex-grow md:justify-end md:mr-4 md:text-lg">
+          <nav className="flex flex-col items-center gap-3 md:flex-row md:items-end md:gap-8 text-black font-Alkalami">
             <Link href="/" className="hover:underline">HOME</Link>
             <Link href="/about" className="hover:underline">ABOUT</Link>
             <Link href="/CV" className="hover:underline">CV</Link>
@@ -53,6 +57,8 @@ export default async function ArtworkPage({ params }) {
       <article className="max-w-6xl mx-auto w-full px-6 pb-16">
         <ArtworkCarousel
           mainImageUrl={mainImageUrl}
+          mainImageWidth={mainImageWidth}
+          mainImageHeight={mainImageHeight}
           title={artwork.title}
           year={artwork.year}
           medium={artwork.medium}

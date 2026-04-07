@@ -6,21 +6,16 @@ export const aboutPage: SchemaTypeDefinition = {
   type: 'document',
   fields: [
     {
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      description: 'e.g. Riley Midroni',
-    },
-    {
       name: 'portrait',
-      title: 'Portrait image',
+      title: 'Bio portrait',
       type: 'image',
       options: { hotspot: true },
     },
     {
       name: 'bio',
-      title: 'Bio / Statement',
+      title: 'Artist statement',
       type: 'text',
+      rows: 12,
     },
     {
       name: 'showContactForm',

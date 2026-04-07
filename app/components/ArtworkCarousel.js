@@ -4,15 +4,33 @@ import Image from "next/image";
 
 function Slide({ slide, title, year, medium, dimensions, description, priority }) {
   if (slide.type === "image") {
+    const hasNaturalDims = slide.width && slide.height;
+    if (hasNaturalDims) {
+      return (
+        <div className="w-full flex items-start justify-center bg-white">
+          <Image
+            key={slide.url}
+            src={slide.url}
+            alt={slide.alt}
+            width={slide.width}
+            height={slide.height}
+            className="w-full h-auto"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority={priority}
+          />
+        </div>
+      );
+    }
+    /* Fallback when dimensions aren't available yet (old cached data) */
     return (
-      <div className="relative aspect-square w-full overflow-hidden bg-white">
+      <div className="relative w-full overflow-hidden bg-white" style={{ paddingBottom: "75%" }}>
         <Image
           key={slide.url}
           src={slide.url}
           alt={slide.alt}
           fill
           className="object-contain"
-          sizes="(max-width: 768px) 50vw, 28vw"
+          sizes="(max-width: 768px) 100vw, 50vw"
           priority={priority}
         />
       </div>
@@ -20,23 +38,21 @@ function Slide({ slide, title, year, medium, dimensions, description, priority }
   }
 
   return (
-    <div className="relative aspect-square w-full overflow-hidden bg-white">
-      <div className="flex items-center justify-center h-full px-6 md:px-10">
-        <div className="space-y-3 text-center max-w-md">
-          <h1 className="font-Notable text-2xl md:text-3xl lg:text-4xl">{title}</h1>
-          {(year || medium || dimensions) && (
-            <div className="text-slate-600 text-xs md:text-sm space-y-1">
-              {year && <div>Year: {year}</div>}
-              {medium && <div>Medium: {medium}</div>}
-              {dimensions && <div>Dimensions: {dimensions}</div>}
-            </div>
-          )}
-          {description && (
-            <p className="pt-3 text-sm md:text-base leading-relaxed whitespace-pre-wrap">
-              {description}
-            </p>
-          )}
-        </div>
+    <div className="w-full flex items-center justify-center bg-white py-8 px-6 md:px-10 min-h-[12rem]">
+      <div className="space-y-3 text-center max-w-md">
+        <h1 className="font-Notable text-2xl md:text-3xl lg:text-4xl">{title}</h1>
+        {(year || medium || dimensions) && (
+          <div className="text-slate-600 text-xs md:text-sm space-y-1">
+            {year && <div>Year: {year}</div>}
+            {medium && <div>Medium: {medium}</div>}
+            {dimensions && <div>Dimensions: {dimensions}</div>}
+          </div>
+        )}
+        {description && (
+          <p className="pt-3 text-sm md:text-base leading-relaxed whitespace-pre-wrap">
+            {description}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -44,6 +60,8 @@ function Slide({ slide, title, year, medium, dimensions, description, priority }
 
 export default function ArtworkCarousel({
   mainImageUrl,
+  mainImageWidth,
+  mainImageHeight,
   title,
   year,
   medium,
@@ -56,7 +74,13 @@ export default function ArtworkCarousel({
   const slides = [];
 
   if (mainImageUrl) {
-    slides.push({ type: "image", url: mainImageUrl, alt: title ?? "Artwork" });
+    slides.push({
+      type: "image",
+      url: mainImageUrl,
+      alt: title ?? "Artwork",
+      width: mainImageWidth,
+      height: mainImageHeight,
+    });
   }
 
   slides.push({ type: "info" });
@@ -66,6 +90,8 @@ export default function ArtworkCarousel({
       type: "image",
       url: img.url,
       alt: `${title ?? "Artwork"} — image ${i + 2}`,
+      width: img.width ?? null,
+      height: img.height ?? null,
     });
   });
 
@@ -108,7 +134,7 @@ export default function ArtworkCarousel({
         )}
 
         {/* Slides */}
-        <div className="grid grid-cols-2 gap-4 md:gap-6 flex-1 min-w-0">
+        <div className="grid grid-cols-2 gap-4 md:gap-6 flex-1 min-w-0 items-start">
           <Slide
             slide={left}
             title={title}

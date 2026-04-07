@@ -2,20 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { ContactInstagramEmail } from "../components/ContactLines";
 import { client } from "../../sanity/lib/client";
+import { urlFor } from "../../sanity/lib/image";
 import { aboutPageQuery, siteSettingsQuery } from "../../sanity/lib/queries";
 
 export const metadata = {
   title: "Riley Midroni | About",
 };
 
-/** Local portrait in public/assets (match filename casing for Linux/Vercel). */
-const ABOUT_IMAGE_SRC = "/assets/riley.JPG";
-
-const DUMMY_ARTIST_STATEMENT = `My practice sits at the intersection of sculpture, costume, and the everyday rituals that shape how we present ourselves. I work with materials that carry memory—fabric, found objects, and the body as a site where identity is constantly rehearsed and revised.
-
-Recent work asks who is allowed to take up space, and how archives flatten lived experience into something legible. Installations become temporary stages where failure and tenderness are held with equal weight.
-
-This site gathers projects in conversation with one another rather than as a strict timeline. Each piece extends a question about visibility, labor, and the stories we tell to stay seen.`;
+/** Used when no portrait is set in Sanity (match filename casing for Linux/Vercel). */
+const FALLBACK_PORTRAIT_SRC = "/assets/riley.JPG";
 
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([
@@ -23,20 +18,29 @@ export default async function AboutPage() {
     client.fetch(siteSettingsQuery),
   ]);
 
-  const title = about?.title ?? "Riley Midroni";
-  const displayTitle = String(title).trim().toUpperCase();
+  const siteName = settings?.siteName ?? "Riley Midroni";
+  const displayTitle = String(siteName).trim().toUpperCase();
   const contactEmail = settings?.contactEmail ?? "RILEYMIDRONI@INFO.COM";
   const instagramHandle = settings?.instagramHandle
     ? `@${settings.instagramHandle}`
     : "@RILEYMIDRONI";
 
-  const statementBody = about?.bio?.trim() ? about.bio : DUMMY_ARTIST_STATEMENT;
+  let portraitSrc = FALLBACK_PORTRAIT_SRC;
+  if (about?.portrait?.asset) {
+    try {
+      portraitSrc = urlFor(about.portrait).width(900).height(900).quality(90).url();
+    } catch {
+      portraitSrc = FALLBACK_PORTRAIT_SRC;
+    }
+  }
+
+  const statementBody = about?.bio?.trim() ? about.bio : "";
 
   return (
     <main className="min-h-screen flex flex-col bg-white text-black">
       {/* Header row: title left, nav right — same line */}
       <header className="flex items-start justify-between gap-8 px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8 pb-5 max-w-7xl mx-auto w-full [container-type:inline-size]">
-        <h1 className="font-Notable uppercase whitespace-nowrap text-[clamp(1.5rem,7.8cqi,6.25rem)] leading-[0.86] tracking-tight text-black min-w-0">
+        <h1 className="font-Notable uppercase text-[clamp(2.25rem,8.5cqi,6.25rem)] leading-[0.92] tracking-tight text-black min-w-0">
           {displayTitle}
         </h1>
         <nav className="flex flex-col items-start gap-1 sm:gap-0.5 font-Alkalami text-base sm:text-lg text-black text-left shrink-0 pt-1">
@@ -49,10 +53,10 @@ export default async function AboutPage() {
       {/* Image + statement below */}
       <section className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-12 xl:gap-16 gap-y-6 md:gap-y-0">
-          <div className="relative aspect-square w-full max-w-[min(100%,28rem)] md:max-w-none bg-neutral-200 min-w-0 md:self-start">
+          <div className="relative aspect-square w-full max-w-[min(100%,28rem)] mx-auto md:mx-0 md:max-w-none bg-neutral-200 min-w-0 md:self-start">
             <Image
-              src={ABOUT_IMAGE_SRC}
-              alt={title}
+              src={portraitSrc}
+              alt={`${siteName} portrait`}
               fill
               className="object-cover object-center"
               sizes="(max-width: 768px) 100vw, 45vw"

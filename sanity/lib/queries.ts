@@ -1,5 +1,11 @@
 // GROQ query fragments and full queries for the portfolio site
 
+const imageWithDims = `{
+  ...,
+  "width": asset->metadata.dimensions.width,
+  "height": asset->metadata.dimensions.height
+}`
+
 const artworkFields = `
   _id,
   title,
@@ -9,8 +15,8 @@ const artworkFields = `
   dimensions,
   description,
   category,
-  mainImage,
-  images,
+  mainImage ${imageWithDims},
+  images[] ${imageWithDims},
   order
 `
 
@@ -59,8 +65,7 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
 }`
 
 export const aboutPageQuery = `*[_type == "aboutPage"][0] {
-  title,
-  portrait,
+  portrait ${imageWithDims},
   bio,
   showContactForm
 }`

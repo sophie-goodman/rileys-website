@@ -31,12 +31,12 @@ export default async function CVPage() {
 
   return (
     <main className="flex flex-col min-h-screen bg-white text-black">
-      <h1 className="font-Notable text-center text-3xl md:text-5xl flex justify-center md:mt-6">
+      <h1 className="font-Notable text-center w-full px-4 text-[clamp(2.125rem,6.5vw,2.75rem)] leading-tight md:text-5xl md:mt-6 flex justify-center">
         {name}
       </h1>
 
-      <header className="flex flex-row justify-center">
-        <nav className="flex flex-col text-center gap-3 md:flex-row md:gap-20 mt-8 font-Alkalami">
+      <header className="flex flex-col items-center justify-center">
+        <nav className="flex flex-col text-center items-center gap-3 md:flex-row md:gap-20 mt-6 md:mt-8 font-Alkalami">
           <Link href="/portfolio" className="text-black hover:underline">
             PORTFOLIO
           </Link>
@@ -49,8 +49,8 @@ export default async function CVPage() {
         </nav>
       </header>
 
-      <div className="pt-20 flex flex-col flex-1 w-full md:items-center align-text-left justify-left">
-        <div className="w-full md:w-1/2 text-start">
+      <div className="pt-12 md:pt-20 flex flex-col flex-1 w-full md:items-center align-text-left justify-left max-md:px-8 min-[480px]:max-md:px-10">
+        <div className="w-full md:w-1/2 text-start max-md:max-w-none">
           {safeSections.length === 0 ? (
             <>
               <div className="pb-3 p-2 underline">EXHIBITIONS</div>

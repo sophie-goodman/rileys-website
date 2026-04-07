@@ -21,7 +21,7 @@ export default function ArtworkGrid({ artworks = [] }) {
 
   return (
     <>
-      <div className="flex flex-row gap-2 items-center justify-center sm:mt-40 sm:gap-7 text-md flex-wrap text-black mt-40 font-Alkalami">
+      <div className="flex flex-row gap-2 items-center justify-center mt-20 md:mt-40 sm:gap-7 text-md flex-wrap text-black font-Alkalami">
         {CATEGORIES.map((cat, i) => (
           <span key={cat.value} className="inline-flex items-center gap-2 sm:gap-7">
             {i > 0 && <span className="select-none" aria-hidden>·</span>}
@@ -36,7 +36,7 @@ export default function ArtworkGrid({ artworks = [] }) {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 p-6 px-20 mt-10">
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 p-4 px-6 mt-6 md:mt-10 md:p-6 md:px-20">
         {filtered.map((artwork) => {
           const src = artwork?.mainImageUrl ?? null;
           if (!src) return null;

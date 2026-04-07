@@ -66,12 +66,12 @@ export default async function Home() {
       </div>
 
       {/* Mobile: grey header with name + vertical menu, centered */}
-      <header className="md:hidden bg-[#2C2924] px-6 pt-6 pb-5 text-center">
-        <div className="text-white font-Notable text-4xl">
+      <header className="md:hidden bg-[#2C2924] px-5 pt-6 pb-5 text-center">
+        <div className="text-white font-Notable text-[clamp(2.25rem,7vw,3rem)] leading-tight w-full">
           {nameLine1} <br />
           {nameLine2}
         </div>
-        <nav className="flex flex-col text-white text-xl gap-3 mt-5 items-center font-Alkalami">
+        <nav className="flex flex-col text-white text-xl gap-3 mt-5 items-center font-Alkalami w-full">
           <Link href="/portfolio" className="underline hover:text-neutral-200 py-1">
             PORTFOLIO
           </Link>
